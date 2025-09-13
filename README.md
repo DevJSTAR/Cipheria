@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="public/logo-black.svg" alt="Cipheria Logo" width="120" height="120">
+  <img src="public/logo-white.svg" alt="Cipheria Logo" width="120" height="120">
 </p>
 
 <h1 align="center">Cipheria</h1>
