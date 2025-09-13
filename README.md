@@ -9,12 +9,12 @@
 </p>
 
 <p align="center">
-  <a href="#features">Features</a> •
-  <a href="#demo">Demo</a> •
-  <a href="#installation">Installation</a> •
-  <a href="#usage">Usage</a> •
-  <a href="#security">Security</a> •
-  <a href="#tech-stack">Tech Stack</a>
+  <a href="https://github.com/DevJSTAR/Cipheria?tab=readme-ov-file#-features">Features</a> •
+  <a href="https://github.com/DevJSTAR/Cipheria?tab=readme-ov-file#-demo">Demo</a> •
+  <a href="https://github.com/DevJSTAR/Cipheria?tab=readme-ov-file#-installation">Installation</a> •
+  <a href="https://github.com/DevJSTAR/Cipheria?tab=readme-ov-file#-usage">Usage</a> •
+  <a href="https://github.com/DevJSTAR/Cipheria?tab=readme-ov-file#-security">Security</a> •
+  <a href="https://github.com/DevJSTAR/Cipheria?tab=readme-ov-file#-tech-stack">Tech Stack</a>
 </p>
 
 <p align="center">
