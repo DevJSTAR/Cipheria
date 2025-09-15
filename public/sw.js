@@ -1,9 +1,6 @@
-// public/sw.js
 const CACHE_NAME = 'cipheria-cache-v1';
 const urlsToCache = [
   '/',
-  '/fonts/monument-extended.woff2',
-  // Add other critical assets here
 ];
 
 self.addEventListener('install', (event) => {
@@ -16,12 +13,41 @@ self.addEventListener('install', (event) => {
   );
 });
 
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames.map((cacheName) => {
+          if (cacheName !== CACHE_NAME) {
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    })
+  );
+});
+
 self.addEventListener('fetch', (event) => {
+  if (event.request.method !== 'GET') {
+    return;
+  }
+  
   event.respondWith(
     caches.match(event.request)
       .then((response) => {
-        // Return cached version or fetch from network
-        return response || fetch(event.request);
-      })
+        return response || fetch(event.request).then((response) => {
+          if (event.request.url.includes('/_next/static/')) {
+            const responseToCache = response.clone();
+            caches.open(CACHE_NAME)
+              .then((cache) => {
+                cache.put(event.request, responseToCache);
+              });
+          }
+          return response;
+        });
+      }
+    ).catch(() => {
+      return fetch(event.request);
+    })
   );
 });
