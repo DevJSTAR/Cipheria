@@ -16,7 +16,18 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "docker:build": "docker build -f docker/Dockerfile -t cipheria:latest .",
+    "docker:run": "docker run -d --name cipheria -p 3000:3000 --restart unless-stopped cipheria:latest",
+    "docker:stop": "docker stop cipheria && docker rm cipheria",
+    "docker:logs": "docker logs -f cipheria",
+    "docker:shell": "docker exec -it cipheria sh",
+    "docker:dev": "cd docker && docker-compose --profile dev up -d",
+    "docker:prod": "cd docker && docker-compose up -d",
+    "docker:down": "cd docker && docker-compose down",
+    "docker:clean": "docker system prune -f",
+    "docker:test": "npm run docker:build && docker run --rm -p 3001:3000 cipheria:latest",
+    "deploy:build": "cd docker && chmod +x build.sh && ./build.sh"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
@@ -85,5 +96,9 @@
     "tailwindcss": "^4",
     "tw-animate-css": "^1.3.8",
     "typescript": "^5"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
   }
 }
