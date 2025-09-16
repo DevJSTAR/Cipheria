@@ -36,7 +36,8 @@ self.addEventListener('fetch', (event) => {
     caches.match(event.request)
       .then((response) => {
         return response || fetch(event.request).then((response) => {
-          if (event.request.url.includes('/_next/static/')) {
+          if (event.request.url.includes('/_next/static/') || 
+              event.request.url.includes('/assets/')) {
             const responseToCache = response.clone();
             caches.open(CACHE_NAME)
               .then((cache) => {
@@ -46,7 +47,8 @@ self.addEventListener('fetch', (event) => {
           return response;
         });
       }
-    ).catch(() => {
+    ).catch((error) => {
+      console.error('Service worker fetch error:', error);
       return fetch(event.request);
     })
   );
