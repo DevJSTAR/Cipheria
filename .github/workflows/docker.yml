@@ -71,13 +71,18 @@ jobs:
       if: github.event_name != 'pull_request'
       run: |
         echo "Waiting for image to be available in registry..."
-        sleep 10
+        sleep 30
+
+    - name: List images in registry (debug)
+      if: github.event_name != 'pull_request'
+      run: |
+        echo "Attempting to list images in registry..."
 
     - name: Run security scan
       if: github.event_name != 'pull_request'
       uses: aquasecurity/trivy-action@master
       with:
-        image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+        image-ref: ${{ fromJSON(steps.meta.outputs.json).tags[0] }}
         format: 'sarif'
         output: 'trivy-results.sarif'
       continue-on-error: true
@@ -87,9 +92,10 @@ jobs:
       run: |
         if [ -f trivy-results.sarif ]; then
           echo "SARIF file exists"
-          cat trivy-results.sarif | head -20
+          ls -la trivy-results.sarif
         else
           echo "SARIF file does not exist"
+          ls -la .
         fi
 
     - name: Upload Trivy scan results
