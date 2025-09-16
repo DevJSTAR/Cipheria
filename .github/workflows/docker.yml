@@ -17,6 +17,7 @@ jobs:
     permissions:
       contents: read
       packages: write
+      security-events: write
 
     steps:
     - name: Checkout repository
@@ -77,6 +78,7 @@ jobs:
       if: github.event_name != 'pull_request'
       run: |
         echo "Attempting to list images in registry..."
+        # This is just for debugging - may not work depending on registry permissions
 
     - name: Run security scan
       if: github.event_name != 'pull_request'
