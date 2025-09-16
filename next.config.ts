@@ -2,6 +2,8 @@ import type { NextConfig } from "next";
 import { join } from "path";
 
 const nextConfig: NextConfig = {
+  output: 'standalone',
+  
   experimental: {
     optimizePackageImports: [
       "lucide-react",
@@ -34,7 +36,18 @@ const nextConfig: NextConfig = {
         ]
       }
     ];
-  }
+  },
+  
+  assetPrefix: process.env.NODE_ENV === 'production' ? '' : undefined,
+
+  async rewrites() {
+    return [
+      {
+        source: '/sw.js',
+        destination: '/sw.js',
+      },
+    ];
+  },
 };
 
 export default nextConfig;
